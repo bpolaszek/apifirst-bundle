@@ -1,0 +1,12 @@
+{% extends '@BenToolsApiFirst/layout.html.twig' %}
+
+{% block content %}
+    <ul class="countries">
+        {% for country in countries %}
+            <li>
+                {{ country.name }}
+                {{ render(controller('BenTools\\ApiFirstBundle\\TestSuite\\Action\\CountryAction:deleteAction', { 'country': country.id })) }}
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

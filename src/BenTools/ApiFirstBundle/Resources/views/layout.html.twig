@@ -1,0 +1,19 @@
+{% block flashes %}
+    {% for type, flashes in app.session.flashbag.all %}
+        <div class="alert alert-{{ type }} alert-dismissable">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            {% if flashes | length > 1 %}
+                <ul>
+                    {% for flash in flashes %}
+                        <li>{{ flash | raw }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                {{ flashes[0] | raw }}
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endblock %}
+
+{% block content %}
+{% endblock %}

@@ -1,0 +1,53 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service class="BenTools\ApiFirstBundle\Form\ApiFirstDeleteType" id="api_first.delete_type">
+            <argument id="api_first.api_consumer_detector" type="service"/>
+            <tag alias="BenTools\ApiFirstBundle\Form\ApiFirstDeleteType" name="form.type"/>
+        </service>
+
+        <service class="BenTools\ApiFirstBundle\Form\ApiFirstFormTypeFactory" id="api_first.form_type_factory">
+            <argument id="form.factory" type="service"/>
+            <argument id="api_first.api_consumer_detector" type="service"/>
+        </service>
+
+        <service class="BenTools\ApiFirstBundle\Services\ApiConsumerDetector" id="api_first.api_consumer_detector">
+            <argument id="fos_rest.format_negotiator" type="service"/>
+        </service>
+
+        <service class="BenTools\ApiFirstBundle\EventListener\PreResponseListener" id="api_first.pre_response_listener">
+            <argument id="api_first.api_consumer_detector" type="service"/>
+            <tag name="kernel.event_subscriber"/>
+        </service>
+
+        <service class="BenTools\ApiFirstBundle\TestSuite\Handler\CountryHandler" id="api_first.test_suite.country_handler">
+            <argument id="form.factory" type="service"/>
+            <argument id="api_first.form_type_factory" type="service"/>
+            <argument id="doctrine" type="service"/>
+            <argument id="api_first.api_consumer_detector" type="service"/>
+        </service>
+
+
+        <service class="BenTools\ApiFirstBundle\TestSuite\Action\CountryAction" id="BenTools\ApiFirstBundle\TestSuite\Action\CountryAction">
+            <argument id="api_first.test_suite.country_handler" type="service"/>
+            <argument id="router" type="service"/>
+        </service>
+
+        <service class="BenTools\ApiFirstBundle\TestSuite\Form\CountryType" id="api_first.test_suite.form_country_type">
+            <argument id="api_first.api_consumer_detector" type="service"/>
+            <tag alias="BenTools\ApiFirstBundle\TestSuite\Form\CountryType" name="form.type"/>
+        </service>
+
+        <service class="BenTools\ApiFirstBundle\TestSuite\Form\CityType" id="api_first.test_suite.form_city_type">
+            <argument id="api_first.api_consumer_detector" type="service"/>
+            <tag alias="BenTools\ApiFirstBundle\TestSuite\Form\CityType" name="form.type"/>
+        </service>
+
+
+    </services>
+</container>

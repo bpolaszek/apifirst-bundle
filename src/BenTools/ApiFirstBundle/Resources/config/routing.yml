@@ -1,0 +1,3 @@
+apifirst_test_suite:
+    resource: "@BenToolsApiFirstBundle/TestSuite/Action/"
+    type:     'annotation'

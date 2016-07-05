@@ -1,0 +1,10 @@
+{% extends '@BenToolsApiFirst/layout.html.twig' %}
+
+{% block content %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <input type="hidden" name="_method" value="PATCH">
+    <input type="submit" value="submit">
+{{ form_end(form) }}
+
+{% endblock %}

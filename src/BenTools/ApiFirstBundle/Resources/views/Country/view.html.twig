@@ -1,0 +1,8 @@
+{% extends '@BenToolsApiFirst/layout.html.twig' %}
+
+{% block content %}
+    <p>
+        {{ country.name }}
+        {{ render(controller('BenTools\\ApiFirstBundle\\TestSuite\\Action\\CountryAction:deleteAction', { 'country': country.id })) }}
+    </p>
+{% endblock %}
