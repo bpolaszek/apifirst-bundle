@@ -5,7 +5,7 @@
     "description": "Provides classes for API-first designed projects with Symfony.",
     "autoload": {
         "psr-4": {
-            "BenTools": "src/BenTools"
+            "BenTools\\ApiFirstBundle\\": "src/BenTools/ApiFirstBundle"
         }
     },
     "require": {
