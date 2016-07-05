@@ -1,5 +1,5 @@
 {
-    "name": "ben/api-first-bundle",
+    "name": "bentools/api-first-bundle",
     "license": "MIT",
     "type": "symfony-bundle",
     "description": "Provides classes for API-first designed projects with Symfony.",
