@@ -32,7 +32,7 @@ class AbstractCRUDAction {
                 return $form->createView();
             }
             if (is_callable($success)) {
-                return $success($resource, $form, $request);
+                return $success($request, $resource, $form);
             }
             else {
                 return $success;
@@ -73,7 +73,7 @@ class AbstractCRUDAction {
      * @return \Closure
      */
     public function onCreationSuccess() : callable {
-        return function (ResourceInterface $resource) {
+        return function (Request $request, ResourceInterface $resource) {
             return $resource;
         };
     }
@@ -82,7 +82,16 @@ class AbstractCRUDAction {
      * @return \Closure
      */
     public function onEditionSuccess() : callable {
-        return function (ResourceInterface $resource) {
+        return function (Request $request, ResourceInterface $resource) {
+            return $resource;
+        };
+    }
+
+    /**
+     * @return \Closure
+     */
+    public function onDeletionSuccess() : callable {
+        return function (Request $request, ResourceInterface $resource) {
             return $resource;
         };
     }
