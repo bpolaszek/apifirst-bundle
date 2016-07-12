@@ -62,7 +62,7 @@ abstract class ResourceHandler implements ResourceHandlerInterface {
      * @return \Symfony\Component\Form\FormInterface
      */
     public function getCreationForm(ResourceInterface $resource = null, array $options = []) : FormInterface {
-        $formClass   = $this->getFormClass();
+        $formClass   = $this->getCreationFormClass();
         $objectClass = $this->getObjectClass();
 
         if (!$resource) {
@@ -81,7 +81,7 @@ abstract class ResourceHandler implements ResourceHandlerInterface {
      * @return FormInterface
      */
     public function getEditionForm(ResourceInterface $resource, $clearMissing = true, array $options = []) : FormInterface {
-        $formClass   = $this->getFormClass();
+        $formClass   = $this->getEditionFormClass();
         $objectClass = $this->getObjectClass();
 
         if (!$resource instanceof $objectClass) {

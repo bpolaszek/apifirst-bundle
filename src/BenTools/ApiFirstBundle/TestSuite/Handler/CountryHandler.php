@@ -19,7 +19,14 @@ class CountryHandler extends ResourceHandler implements ResourceHandlerInterface
     /**
      * @inheritDoc
      */
-    public function getFormClass() {
+    public function getCreationFormClass() {
+        return CountryType::class;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getEditionFormClass() {
         return CountryType::class;
     }
 }

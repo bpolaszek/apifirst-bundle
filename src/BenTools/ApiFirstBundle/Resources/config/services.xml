@@ -25,13 +25,17 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
+        <service class="BenTools\ApiFirstBundle\Services\TwigEngine" id="api_first.twig_engine">
+            <argument id="twig" type="service"/>
+            <argument id="templating.engine.twig" type="service"/>
+        </service>
+
         <service class="BenTools\ApiFirstBundle\TestSuite\Handler\CountryHandler" id="api_first.test_suite.country_handler">
             <argument id="form.factory" type="service"/>
             <argument id="api_first.form_type_factory" type="service"/>
             <argument id="doctrine" type="service"/>
             <argument id="api_first.api_consumer_detector" type="service"/>
         </service>
-
 
         <service class="BenTools\ApiFirstBundle\TestSuite\Action\CountryAction" id="BenTools\ApiFirstBundle\TestSuite\Action\CountryAction">
             <argument id="api_first.test_suite.country_handler" type="service"/>
