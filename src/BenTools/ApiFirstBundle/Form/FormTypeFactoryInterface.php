@@ -3,6 +3,7 @@
 namespace BenTools\ApiFirstBundle\Form;
 
 use Symfony\Component\Form\FormFactoryInterface;
+use Symfony\Component\Form\FormInterface;
 
 interface FormTypeFactoryInterface {
     
@@ -15,7 +16,7 @@ interface FormTypeFactoryInterface {
      * @param string $type
      * @param null   $data
      * @param array  $options
-     * @return mixed
+     * @return FormInterface
      */
     public function create($type = 'Symfony\Component\Form\Extension\Core\Type\FormType', $data = null, array $options = []);
 
