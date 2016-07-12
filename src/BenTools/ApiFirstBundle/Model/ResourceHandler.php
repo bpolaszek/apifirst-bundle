@@ -81,7 +81,7 @@ abstract class ResourceHandler implements ResourceHandlerInterface {
      * @return FormInterface
      */
     public function getEditionForm(ResourceInterface $resource, $clearMissing = true, array $options = []) : FormInterface {
-        $formClass   = $this->getEditionFormClass();
+        $formClass   = $this->getFormClass();
         $objectClass = $this->getObjectClass();
 
         if (!$resource instanceof $objectClass) {
