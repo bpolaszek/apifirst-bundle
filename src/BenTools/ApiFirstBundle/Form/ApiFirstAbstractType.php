@@ -39,6 +39,14 @@ abstract class ApiFirstAbstractType extends AbstractType {
      * @param FormBuilderInterface $formBuilder
      * @return bool
      */
+    public function isACreationForm(FormBuilderInterface $formBuilder) {
+        return $formBuilder->getMethod() == 'POST';
+    }
+
+    /**
+     * @param FormBuilderInterface $formBuilder
+     * @return bool
+     */
     public function isAnEditionForm(FormBuilderInterface $formBuilder) {
         return in_array($formBuilder->getMethod(), ['PUT', 'PATCH']);
     }
