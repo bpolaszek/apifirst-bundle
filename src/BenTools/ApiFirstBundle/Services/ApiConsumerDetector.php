@@ -20,7 +20,7 @@ class ApiConsumerDetector {
     }
 
     /**
-     * @return \Negotiation\Accept|\Negotiation\AcceptHeader|null|void
+     * @return bool
      * @throws \FOS\RestBundle\Util\StopFormatListenerException
      */
     public function looksLikeAnApiRequest() {

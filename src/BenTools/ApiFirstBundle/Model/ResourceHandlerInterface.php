@@ -20,12 +20,7 @@ interface ResourceHandlerInterface {
     /**
      * @return string
      */
-    public function getCreationFormClass();
-
-    /**
-     * @return string
-     */
-    public function getEditionFormClass();
+    public function getFormClass();
 
     /**
      * @return ObjectRepository

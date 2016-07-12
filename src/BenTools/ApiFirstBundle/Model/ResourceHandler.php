@@ -62,7 +62,7 @@ abstract class ResourceHandler implements ResourceHandlerInterface {
      * @return \Symfony\Component\Form\FormInterface
      */
     public function getCreationForm(ResourceInterface $resource = null, array $options = []) : FormInterface {
-        $formClass   = $this->getCreationFormClass();
+        $formClass   = $this->getFormClass();
         $objectClass = $this->getObjectClass();
 
         if (!$resource) {

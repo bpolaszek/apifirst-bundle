@@ -19,14 +19,7 @@ class CityHandler extends ResourceHandler implements ResourceHandlerInterface {
     /**
      * @inheritDoc
      */
-    public function getCreationFormClass() {
-        return CityType::class;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getEditionFormClass() {
+    public function getFormClass() {
         return CityType::class;
     }
 
