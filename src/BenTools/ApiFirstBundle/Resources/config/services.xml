@@ -30,6 +30,11 @@
             <argument id="templating.engine.twig" type="service"/>
         </service>
 
+        <service class="BenTools\ApiFirstBundle\Services\LinkFormRenderer" id="api_first.link_form_renderer">
+            <argument id="twig" type="service"/>
+            <tag name="twig.extension"/>
+        </service>
+
         <service class="BenTools\ApiFirstBundle\TestSuite\Handler\CountryHandler" id="api_first.test_suite.country_handler">
             <argument id="form.factory" type="service"/>
             <argument id="api_first.form_type_factory" type="service"/>

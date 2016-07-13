@@ -1,0 +1,30 @@
+{% spaceless %}
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+    <script>
+        (function () {
+            var n;
+            var d           = document;
+            var l           = d.createElement('a');
+            var s           = d.getElementsByTagName('script')[d.getElementsByTagName('script').length - 1];
+            var f           = s.previousElementSibling;
+            var el          = f.getElementsByTagName('button');
+            f.style.display = 'none';
+            for (i = 0; i < el.length; i++) {
+                if ((el[i].getAttribute('type') == 'submit')) {
+                    n = el[i].innerHTML;
+                    break;
+                }
+            }
+            l.setAttribute('href', '#');
+            l.className += 'link-submit-form';
+            l.innerHTML = n;
+            f.parentNode.appendChild(l);
+            l.addEventListener('click', function (e) {
+                e.preventDefault();
+                f.submit();
+            });
+        })();
+    </script>
+{% endspaceless %}
