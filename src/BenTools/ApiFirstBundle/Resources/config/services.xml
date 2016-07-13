@@ -20,6 +20,13 @@
             <argument id="fos_rest.format_negotiator" type="service"/>
         </service>
 
+        <service class="BenTools\ApiFirstBundle\Services\ApiGuardAuthenticator" id="api_first.api_guard_authenticator">
+            <argument id="api_first.api_consumer_detector" type="service"/>
+            <argument id="doctrine" type="service"/>
+            <argument>%api_first.user_class%</argument>
+            <argument id="security.token_storage" type="service"/>
+        </service>
+
         <service class="BenTools\ApiFirstBundle\EventListener\PreResponseListener" id="api_first.pre_response_listener">
             <argument id="api_first.api_consumer_detector" type="service"/>
             <tag name="kernel.event_subscriber"/>
