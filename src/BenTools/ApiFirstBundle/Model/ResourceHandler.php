@@ -59,7 +59,9 @@ abstract class ResourceHandler implements ResourceHandlerInterface {
     }
 
     /**
-     * @return \Symfony\Component\Form\FormInterface
+     * @param ResourceInterface|null $resource
+     * @param array                  $options
+     * @return FormInterface
      */
     public function getCreationForm(ResourceInterface $resource = null, array $options = []) : FormInterface {
         $formClass   = $this->getFormClass();
@@ -78,6 +80,8 @@ abstract class ResourceHandler implements ResourceHandlerInterface {
 
     /**
      * @param ResourceInterface $resource
+     * @param bool              $clearMissing
+     * @param array             $options
      * @return FormInterface
      */
     public function getEditionForm(ResourceInterface $resource, $clearMissing = true, array $options = []) : FormInterface {
@@ -95,17 +99,20 @@ abstract class ResourceHandler implements ResourceHandlerInterface {
 
     /**
      * @param ResourceInterface $resource
+     * @param                   $action
+     * @param array             $options
      * @return FormInterface
      */
     public function getDeletionForm(ResourceInterface $resource, $action, array $options = []) : FormInterface {
+        $formClass   = $this->getFormClass();
         $objectClass = $this->getObjectClass();
 
         if (!$resource instanceof $objectClass) {
             throw new UnexpectedTypeException($resource, $objectClass);
         }
 
-        return $this->formTypeFactory->create(ApiFirstDeleteType::class, $resource, array_replace([
-            'action' => $action,
+        return $this->formTypeFactory->create($formClass, $resource, array_replace([
+            'method' => 'DELETE',
         ], $options));
     }
 
