@@ -29,7 +29,7 @@ class PreResponse {
      * @param string $APILocation
      * @param int    $APIStatusCode
      */
-    public function __construct(string $UILocation, string $APILocation, int $APIStatusCode = Response::HTTP_OK) {
+    public function __construct(string $UILocation, string $APILocation, int $APIStatusCode = Response::HTTP_NO_CONTENT) {
         $this->UILocation    = $UILocation;
         $this->APILocation   = $APILocation;
         $this->APIStatusCode = $APIStatusCode;
