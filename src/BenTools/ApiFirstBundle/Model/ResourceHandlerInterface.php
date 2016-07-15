@@ -15,12 +15,17 @@ interface ResourceHandlerInterface {
     /**
      * @return string
      */
-    public function getObjectClass();
+    public function getObjectClass() : string;
 
     /**
      * @return string
      */
-    public function getFormClass();
+    public function getFormClass() : string;
+
+    /**
+     * @return string
+     */
+    public function getActionClass() : string;
 
     /**
      * @return ObjectRepository

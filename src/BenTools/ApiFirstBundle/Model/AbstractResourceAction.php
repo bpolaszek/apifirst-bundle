@@ -3,27 +3,17 @@
 namespace BenTools\ApiFirstBundle\Model;
 
 use BenTools\HelpfulTraits\Symfony\ControllerHelpersTrait;
-use BenTools\HelpfulTraits\Symfony\EntityManagerAwareTrait;
 use BenTools\HelpfulTraits\Symfony\RouterAwareTrait;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\RouterInterface;
 
-/**
- * @method ArrayCollection|ResourceInterface[] indexAction(Request $request)
- * @method ResourceInterface|FormInterface|FormView createAction(Request $request)
- * @method ResourceInterface viewAction(Request $request, ResourceInterface $resource)
- * @method ResourceInterface|FormInterface|FormView editAction(Request $request, ResourceInterface $resource)
- * @method ResourceInterface|FormInterface|FormView deleteAction(Request $request, ResourceInterface $resource)
- */
 abstract class AbstractResourceAction extends AbstractCRUDAction {
 
-    use EntityManagerAwareTrait, RouterAwareTrait, ControllerHelpersTrait;
+    use RouterAwareTrait, ControllerHelpersTrait;
 
     const ENTITY_NAME          = null;
     const PLURAL_ENTITY_NAME   = null;
@@ -51,10 +41,7 @@ abstract class AbstractResourceAction extends AbstractCRUDAction {
      * @param RouterInterface          $router
      * @param EngineInterface          $templating
      */
-    public function __construct(ManagerRegistry $managerRegistry,
-                                RouterInterface $router,
-                                EngineInterface $templating) {
-        $this->managerRegistry = $managerRegistry;
+    public function __construct(RouterInterface $router, EngineInterface $templating) {
         $this->router          = $router;
         $this->templating      = $templating;
     }
