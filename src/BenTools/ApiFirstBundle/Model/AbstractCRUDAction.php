@@ -8,7 +8,7 @@ use Sylius\Component\Resource\Model\ResourceInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class AbstractCRUDAction {
+abstract class AbstractCRUDAction {
 
     use RouterAwareTrait;
 
@@ -42,6 +42,30 @@ class AbstractCRUDAction {
         catch (ValidationFormException $e) {
             return $e->getForm();
         }
+    }
+
+    /**
+     * @param FormInterface $form
+     * @return bool
+     */
+    public function isACreationForm(FormInterface $form) {
+        return $form->getConfig()->getMethod() == 'POST';
+    }
+
+    /**
+     * @param FormInterface $form
+     * @return bool
+     */
+    public function isAnEditionForm(FormInterface $form) {
+        return in_array($form->getConfig()->getMethod(), ['PUT', 'PATCH']);
+    }
+
+    /**
+     * @param FormInterface $form
+     * @return bool
+     */
+    public function isADeletionForm(FormInterface $form) {
+        return $form->getConfig()->getMethod() == 'DELETE';
     }
 
     /**
