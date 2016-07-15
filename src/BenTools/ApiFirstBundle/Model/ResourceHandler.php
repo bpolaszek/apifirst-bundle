@@ -14,6 +14,7 @@ use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 abstract class ResourceHandler implements ResourceHandlerInterface {
 
@@ -128,6 +129,9 @@ abstract class ResourceHandler implements ResourceHandlerInterface {
 
         # API form - don't rely on automatic $clearMissing since some values may be set by default with the factory
         elseif ($input instanceof Request) {
+            if (in_array($input->getMethod(), ['PUT', 'PATCH']) && !in_array($input->getContentType(), ['form', 'json'])) {
+                throw new BadRequestHttpException("Input should be x-www-form-urlencoded or raw json.");
+            }
             $form->submit($input->request->all(), $clearMissing);
         }
 
