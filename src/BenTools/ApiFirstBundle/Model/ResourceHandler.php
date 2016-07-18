@@ -108,6 +108,7 @@ abstract class ResourceHandler implements ResourceHandlerInterface {
 
         return $this->formTypeFactory->create($formClass, $resource, array_replace([
             'method' => 'DELETE',
+            'action' => $action,
         ], $options));
     }
 
