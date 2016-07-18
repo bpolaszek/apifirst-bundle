@@ -44,14 +44,30 @@ class ApiGuardAuthenticator extends AbstractGuardAuthenticator implements Reques
      * APIGuardAuthenticator constructor.
      * @param ApiConsumerDetector   $apiConsumerDetector
      * @param ManagerRegistry       $managerRegistry
-     * @param string                $userClass
      * @param TokenStorageInterface $tokenStorage
+     * @param string                $userClass
      */
-    public function __construct(ApiConsumerDetector $apiConsumerDetector, ManagerRegistry $managerRegistry, $userClass, TokenStorageInterface $tokenStorage) {
+    public function __construct(ApiConsumerDetector $apiConsumerDetector, ManagerRegistry $managerRegistry, TokenStorageInterface $tokenStorage, $userClass = null) {
         $this->managerRegistry     = $managerRegistry;
-        $this->userClass           = $userClass;
         $this->tokenStorage        = $tokenStorage;
         $this->apiConsumerDetector = $apiConsumerDetector;
+        $this->userClass           = $userClass;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserClass() {
+        return $this->userClass;
+    }
+
+    /**
+     * @param string $userClass
+     * @return $this - Provides Fluent Interface
+     */
+    public function setUserClass($userClass) {
+        $this->userClass = $userClass;
+        return $this;
     }
 
     /**
@@ -72,6 +88,9 @@ class ApiGuardAuthenticator extends AbstractGuardAuthenticator implements Reques
      * @inheritDoc
      */
     public function getUser($token, UserProviderInterface $userProvider) {
+        if (!$this->userClass) {
+            throw new \RuntimeException("User class should be provided");
+        }
         return $this->getRepositoryOf($this->userClass)->findOneBy([
             'apiKey' => $token,
         ]);

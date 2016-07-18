@@ -1,10 +1,15 @@
 <?xml version="1.0" ?>
 
 <container xmlns="http://symfony.com/schema/dic/services"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <parameters>
+        <parameter key="api_first.user_class" on-invalid="ignore"/>
+    </parameters>
 
     <services>
+
 
         <service class="BenTools\ApiFirstBundle\Form\ApiFirstDeleteType" id="api_first.delete_type">
             <argument id="api_first.api_consumer_detector" type="service"/>
@@ -23,8 +28,8 @@
         <service class="BenTools\ApiFirstBundle\Services\ApiGuardAuthenticator" id="api_first.api_guard_authenticator">
             <argument id="api_first.api_consumer_detector" type="service"/>
             <argument id="doctrine" type="service"/>
-            <argument>%api_first.user_class%</argument>
             <argument id="security.token_storage" type="service"/>
+            <argument>%api_first.user_class%</argument>
         </service>
 
         <service class="BenTools\ApiFirstBundle\EventListener\PreResponseListener" id="api_first.pre_response_listener">

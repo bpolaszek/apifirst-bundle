@@ -79,21 +79,23 @@ class APITest extends WebTestCase {
 
         $client = static::makeClient();
 
-        $client->request('PATCH', '/countries/1', [
+        $client->request('PATCH', '/countries/1', [], [], [
+            'HTTP_ACCEPT'  => 'application/json',
+            'CONTENT_TYPE' => 'application/json',
+        ], json_encode([
             'name' => 'fr',
-        ], [], [
-            'HTTP_ACCEPT' => 'application/json',
-        ]);
+        ]));
 
         // We should get a validation error for Assert\Minlength(3).
         $this->assertStatusCode(400, $client);
         $this->assertValidationErrors(['data.name'], $client->getContainer());
 
-        $client->request('PATCH', '/countries/1', [
+        $client->request('PATCH', '/countries/1', [], [], [
+            'HTTP_ACCEPT'  => 'application/json',
+            'CONTENT_TYPE' => 'application/json',
+        ], json_encode([
             'name' => 'France',
-        ], [], [
-            'HTTP_ACCEPT' => 'application/json',
-        ]);
+        ]));
 
         $this->assertStatusCode(204, $client);
         $redirect = $client->getResponse()->headers->get('Location');

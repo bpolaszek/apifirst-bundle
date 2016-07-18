@@ -118,8 +118,7 @@ class UITest extends WebTestCase {
         $crawler = $client->request('GET', '/countries');
         $this->assertStatusCode(200, $client);
         $this->assertCount(1, $crawler->filter('ul.countries > li'));
-        $this->assertCount(1, $crawler->filter('input#api_first_delete_id'));
-        $this->assertCount(1, $crawler->filter('input#api_first_delete__token'));
+        $this->assertCount(1, $crawler->filter('input#country__token'));
 
         $form = $crawler->selectButton('delete')->form();
         $client->submit($form);

@@ -126,7 +126,7 @@ class CountryAction extends AbstractCRUDAction {
      * @return \Closure
      */
     public function onCreationSuccess() : callable {
-        return function (Country $country) {
+        return function (Request $request, Country $country) {
             $UILocation = $this->router->generate('country_list');
             $APILocation = $this->router->generate('country_view', [
                 'country' => $country->getId(),
@@ -139,7 +139,7 @@ class CountryAction extends AbstractCRUDAction {
      * @return \Closure
      */
     public function onEditionSuccess() : callable {
-        return function (Country $country) {
+        return function (Request $request, Country $country) {
             $UILocation = $this->router->generate('country_list');
             $APILocation = $this->router->generate('country_view', [
                 'country' => $country->getId(),
@@ -151,7 +151,7 @@ class CountryAction extends AbstractCRUDAction {
 
 
     public function onRemovalSuccess() : callable {
-        return function (Country $country) {
+        return function (Request $request, Country $country) {
             $APILocation = $this->router->generate('country_list');
             return PreResponse::create($APILocation, $APILocation, Response::HTTP_NO_CONTENT)->addFlash('success', 'Removal success!');
         };
