@@ -2,12 +2,16 @@
 
 namespace BenTools\ApiFirstBundle;
 
-use BenTools\ApiFirstBundle\TestSuite\Model\Country;
-use Doctrine\Bundle\DoctrineBundle\Registry;
+use BenTools\ApiFirstBundle\DependencyInjection\ResourceHandlerCompilerPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Doctrine\ORM\Tools\Setup;
-use Doctrine\ORM\EntityManager;
 
 class BenToolsApiFirstBundle extends Bundle {
 
+    /**
+     * @inheritDoc
+     */
+    public function build(ContainerBuilder $container) {
+        $container->addCompilerPass(new ResourceHandlerCompilerPass());
+    }
 }
