@@ -7,7 +7,22 @@
  **/
 
 namespace BenTools\ApiFirstBundle\Model;
+use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
+use Doctrine\Common\Persistence\Event\PreUpdateEventArgs;
+use Doctrine\Common\Persistence\Event\PreFlushEventArgs;
+use Sylius\Component\Resource\Model\ResourceInterface;
 
+/**
+ * Interface DoctrineResourceListenerInterface
+ * @method prePersist(ResourceInterface $resource, LifecycleEventArgs $event)
+ * @method postPersist(ResourceInterface $resource, LifecycleEventArgs $event)
+ * @method preUpdate(ResourceInterface $resource, PreUpdateEventArgs $event)
+ * @method postUpdate(ResourceInterface $resource, LifecycleEventArgs $event)
+ * @method postRemove(ResourceInterface $resource, LifecycleEventArgs $event)
+ * @method preRemove(ResourceInterface $resource, LifecycleEventArgs $event)
+ * @method preFlush(ResourceInterface $resource, PreFlushEventArgs $event)
+ * @method postLoad(ResourceInterface $resource, LifecycleEventArgs $event)
+ */
 interface DoctrineResourceListenerInterface {
 
 }
