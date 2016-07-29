@@ -2,12 +2,12 @@
 
 namespace BenTools\ApiFirstBundle\TestSuite\Handler;
 
-use BenTools\ApiFirstBundle\Model\ResourceHandler;
+use BenTools\ApiFirstBundle\Model\AbstractResourceHandler;
 use BenTools\ApiFirstBundle\Model\ResourceHandlerInterface;
 use BenTools\ApiFirstBundle\TestSuite\Form\CityType;
 use BenTools\ApiFirstBundle\TestSuite\Model\City;
 
-class CityHandler extends ResourceHandler implements ResourceHandlerInterface {
+class CityHandlerAbstract extends AbstractResourceHandler implements ResourceHandlerInterface {
 
     /**
      * @inheritDoc

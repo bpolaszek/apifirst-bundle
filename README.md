@@ -18,17 +18,17 @@ Several classes interacts with this resource:
 * Form classes
 * Action classes (GET, POST, PUT, PATCH, DELETE, related resources, etc)
 
-A `ResourceHandler` is a service that gives access to the corresponding classes of a specific Resource.
+A `AbstractResourceHandler` is a service that gives access to the corresponding classes of a specific Resource.
 
 **Here's the flow:**
 
-* The `ResourceHandler` provides form handling. It is HTTP agnostic: you can submit a form from a `Request` or from raw data (array). You can use it in cron jobs, bulk actions, its role is not to send a `Response` but a `Resource`. When the form fails it throws a `ValidationFormException`.
-* The Action classes calls the `ResourceHandler` to transform a `Resource` with a `Request`.
+* The `AbstractResourceHandler` provides form handling. It is HTTP agnostic: you can submit a form from a `Request` or from raw data (array). You can use it in cron jobs, bulk actions, its role is not to send a `Response` but a `Resource`. When the form fails it throws a `ValidationFormException`.
+* The Action classes calls the `AbstractResourceHandler` to transform a `Resource` with a `Request`.
 * The Action classes can generate a pre-response, in which they can define:
 	* What to do on success (redirect to an URL, add flashes for instance, in case of an UI request)
 	* Which HTTP status code to reply (in case of an API submission)
 * An event-listener will transform this `PreResponse` to the correct response with content-negociation (redirect + flash if the request came from an UI, status code in case of an API request)
-* When a `ValidationFormException` is thrown from the `ResourceHandler`, the Action class should:
+* When a `ValidationFormException` is thrown from the `AbstractResourceHandler`, the Action class should:
 	* Return a HTTP 200 response code with the form and the errors in case of an UI request
 	* Return a HTTP 400 response code with the serialized form errors in case of an API request
 	* The `BenTools\ApiFirstBundle\Model\AbstractCRUDAction::submitForm()` method will return the resolved callable `$success` on success; the Form object otherwise.
@@ -63,7 +63,7 @@ CSRF Protection
 Form Handling
 -------------
 
-When you extend the `BenTools\ApiFirstBundle\Model\ResourceHandler` class, you can call the `getCreationForm`, `getEditionForm` and the `getDeletionForm` methods.
+When you extend the `BenTools\ApiFirstBundle\Model\AbstractResourceHandler` class, you can call the `getCreationForm`, `getEditionForm` and the `getDeletionForm` methods.
 
 If you're using an UI, it will create a *named* form. On the contrary, if you're posting data on the API, the keys won't be prefixed in the form.
 

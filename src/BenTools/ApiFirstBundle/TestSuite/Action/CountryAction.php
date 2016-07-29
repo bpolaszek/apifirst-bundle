@@ -3,7 +3,7 @@
 namespace BenTools\ApiFirstBundle\TestSuite\Action;
 use BenTools\ApiFirstBundle\Model\AbstractCRUDAction;
 use BenTools\ApiFirstBundle\Model\PreResponse;
-use BenTools\ApiFirstBundle\TestSuite\Handler\CountryHandler;
+use BenTools\ApiFirstBundle\TestSuite\Handler\CountryHandlerAbstract;
 use BenTools\ApiFirstBundle\TestSuite\Model\Country;
 use FOS\RestBundle\Controller\Annotations\Route;
 use FOS\RestBundle\Controller\Annotations\View;
@@ -22,10 +22,10 @@ class CountryAction extends AbstractCRUDAction {
 
     /**
      * CountryAction constructor.
-     * @param CountryHandler  $resourceHandler
-     * @param RouterInterface $router
+     * @param CountryHandlerAbstract $resourceHandler
+     * @param RouterInterface        $router
      */
-    public function __construct(CountryHandler $resourceHandler, RouterInterface $router) {
+    public function __construct(CountryHandlerAbstract $resourceHandler, RouterInterface $router) {
         $this->resourceHandler = $resourceHandler;
         $this->router          = $router;
     }

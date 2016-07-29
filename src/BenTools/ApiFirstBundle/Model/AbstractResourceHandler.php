@@ -16,7 +16,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-abstract class ResourceHandler implements ResourceHandlerInterface {
+abstract class AbstractResourceHandler implements ResourceHandlerInterface {
 
     use EntityManagerAwareTrait;
 

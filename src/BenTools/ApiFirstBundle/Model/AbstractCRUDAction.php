@@ -6,6 +6,7 @@ use BenTools\HelpfulTraits\Symfony\RouterAwareTrait;
 use M6Web\Bundle\ApiExceptionBundle\Exception\ValidationFormException;
 use Sylius\Component\Resource\Model\ResourceInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
 
 abstract class AbstractCRUDAction {
@@ -13,7 +14,7 @@ abstract class AbstractCRUDAction {
     use RouterAwareTrait;
 
     /**
-     * @var ResourceHandler
+     * @var AbstractResourceHandler
      */
     protected $resourceHandler;
 
@@ -22,7 +23,7 @@ abstract class AbstractCRUDAction {
      * @param Request       $request
      * @param callable      $success
      * @param bool          $flush
-     * @return ResourceInterface|FormInterface
+     * @return ResourceInterface|FormInterface|FormView
      */
     public function submitForm(FormInterface $form, Request $request, callable $success = null, bool $flush = true) {
         try {

@@ -25,7 +25,7 @@ abstract class AbstractResourceAction extends AbstractCRUDAction {
     const RESOURCE_PATH_PARAMS = ['self.id'];
 
     /**
-     * @var ResourceHandler
+     * @var AbstractResourceHandler
      */
     protected $resourceHandler;
 
@@ -100,6 +100,24 @@ abstract class AbstractResourceAction extends AbstractCRUDAction {
     /**
      * @param Request           $request
      * @param ResourceInterface $resource
+     * @return FormInterface
+     */
+    public function getCreationForm(Request $request, ResourceInterface $resource) {
+        return $this->resourceHandler->getCreationForm($resource);
+    }
+
+    /**
+     * @param Request           $request
+     * @param ResourceInterface $resource
+     * @return FormInterface
+     */
+    public function getEditionForm(Request $request, ResourceInterface $resource) {
+        return $this->resourceHandler->getEditionForm($resource);
+    }
+
+    /**
+     * @param Request           $request
+     * @param ResourceInterface $resource
      */
     public function getDeletionForm(Request $request, ResourceInterface $resource) {
         return $this->resourceHandler->getDeletionForm($resource, $this->getViewPath($request, $resource));
@@ -110,7 +128,7 @@ abstract class AbstractResourceAction extends AbstractCRUDAction {
      */
     public function onCreationSuccess() : callable {
         return function (Request $request, ResourceInterface $trackingSoftware) {
-            $UILocation  = $this->getEditPath($request, $trackingSoftware);
+            $UILocation  = $this->getIndexPath($request, $trackingSoftware);
             $APILocation = $this->getViewPath($request, $trackingSoftware);
             return PreResponse::create($UILocation, $APILocation, Response::HTTP_CREATED);
         };
@@ -232,6 +250,10 @@ abstract class AbstractResourceAction extends AbstractCRUDAction {
                     if (!$includeSelf) {
                         unset($params[$key]);
                         continue 2;
+                    }
+                    else {
+                        unset($params[$key]);
+                        $params['id'] = $object->getId();
                     }
                     continue;
                 }
