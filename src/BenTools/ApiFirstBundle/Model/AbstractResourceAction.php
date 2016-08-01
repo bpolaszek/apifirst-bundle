@@ -52,7 +52,9 @@ abstract class AbstractResourceAction extends AbstractCRUDAction {
      * @inheritDoc
      */
     public function submitForm(FormInterface $form, Request $request, callable $success = null, bool $flush = true) {
-        switch (func_num_args() < 3) {
+        switch (true) {
+            case is_callable($success):
+                break;
             case $this->isADeletionForm($form):
                 $success = $this->onDeletionSuccess();
                 break;
