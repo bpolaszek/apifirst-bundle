@@ -22,7 +22,9 @@ abstract class AbstractResourceAction extends AbstractCRUDAction {
     const SINGLE_ENTITY_ROUTE  = null;
     const CREATE_FORM_ROUTE    = null;
     const EDIT_FORM_ROUTE      = null;
-    const RESOURCE_PATH_PARAMS = ['self.id'];
+    const RESOURCE_PATH_PARAMS = [
+        'id' => 'self.id'
+    ];
 
     /**
      * @var AbstractResourceHandler
@@ -250,10 +252,6 @@ abstract class AbstractResourceAction extends AbstractCRUDAction {
                     if (!$includeSelf) {
                         unset($params[$key]);
                         continue 2;
-                    }
-                    else {
-                        unset($params[$key]);
-                        $params['id'] = $object->getId();
                     }
                     continue;
                 }
