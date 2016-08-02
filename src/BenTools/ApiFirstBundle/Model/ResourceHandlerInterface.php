@@ -3,6 +3,7 @@
 namespace BenTools\ApiFirstBundle\Model;
 
 use BenTools\ApiFirstBundle\Form\ApiFirstDeleteType;
+use Doctrine\Common\Collections\Criteria;
 use Doctrine\Common\Persistence\ObjectRepository;
 use M6Web\Bundle\ApiExceptionBundle\Exception\ValidationFormException;
 use Sylius\Component\Resource\Model\ResourceInterface;
@@ -33,9 +34,10 @@ interface ResourceHandlerInterface {
     public function getRepository() : ObjectRepository;
 
     /**
+     * @param Criteria|mixed $criteria
      * @return array|ResourceInterface[]
      */
-    public function getObjects();
+    public function getObjects($criteria = null);
 
     /**
      * @param ResourceInterface|null $resource

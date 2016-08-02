@@ -55,7 +55,7 @@ abstract class AbstractResourceHandler implements ResourceHandlerInterface {
     /**
      * @inheritDoc
      */
-    public function getObjects() {
+    public function getObjects($criteria = null) {
         return $this->getRepository()->findAll();
     }
 
