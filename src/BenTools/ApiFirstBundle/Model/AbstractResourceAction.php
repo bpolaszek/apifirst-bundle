@@ -6,6 +6,7 @@ use BenTools\HelpfulTraits\Symfony\ControllerHelpersTrait;
 use BenTools\HelpfulTraits\Symfony\RouterAwareTrait;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Sylius\Component\Resource\Model\ResourceInterface;
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,7 +24,7 @@ abstract class AbstractResourceAction extends AbstractCRUDAction {
     const CREATE_FORM_ROUTE    = null;
     const EDIT_FORM_ROUTE      = null;
     const RESOURCE_PATH_PARAMS = [
-        'id' => 'self.id'
+        'id' => 'self.id',
     ];
 
     /**
@@ -44,61 +45,8 @@ abstract class AbstractResourceAction extends AbstractCRUDAction {
      * @param EngineInterface          $templating
      */
     public function __construct(RouterInterface $router, EngineInterface $templating) {
-        $this->router          = $router;
-        $this->templating      = $templating;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function submitForm(FormInterface $form, Request $request, callable $success = null, bool $flush = true) {
-        switch (true) {
-            case is_callable($success):
-                break;
-            case $this->isADeletionForm($form):
-                $success = $this->onDeletionSuccess();
-                break;
-            case $this->isAnEditionForm($form):
-                $success = $this->onEditionSuccess();
-                break;
-            case $this->isACreationForm($form):
-                $success = $this->onCreationSuccess();
-                break;
-            default:
-                $success = null;
-        }
-        return parent::submitForm($form, $request, $success, $flush);
-    }
-
-    /**
-     * @param ResourceInterface $resource
-     * @return string
-     */
-    public function getIndexPath(Request $request, ResourceInterface $resource) : string {
-        return $this->generateUrl($this->getListingRoute(), $this->resolveResourcePathParams($resource, false));
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function getCreatePath(Request $request, ResourceInterface $resource) : string {
-        return $this->generateUrl($this->getCreateFormRoute(), $this->resolveResourcePathParams($resource, false));
-    }
-
-    /**
-     * @param ResourceInterface $trackingSoftware
-     * @return string
-     */
-    public function getEditPath(Request $request, ResourceInterface $resource) : string {
-        return $this->generateUrl($this->getEditFormRoute(), $this->resolveResourcePathParams($resource));
-    }
-
-    /**
-     * @param ResourceInterface $trackingSoftware
-     * @return string
-     */
-    public function getViewPath(Request $request, ResourceInterface $resource) : string {
-        return $this->generateUrl($this->getSingleEntityRoute(), $this->resolveResourcePathParams($resource));
+        $this->router     = $router;
+        $this->templating = $templating;
     }
 
     /**
@@ -125,6 +73,28 @@ abstract class AbstractResourceAction extends AbstractCRUDAction {
      */
     public function getDeletionForm(Request $request, ResourceInterface $resource) {
         return $this->resourceHandler->getDeletionForm($resource, $this->getViewPath($request, $resource));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function submitForm(FormInterface $form, Request $request, callable $success = null, bool $flush = true) {
+        switch (true) {
+            case is_callable($success):
+                break;
+            case $this->isADeletionForm($form):
+                $success = $this->onDeletionSuccess();
+                break;
+            case $this->isAnEditionForm($form):
+                $success = $this->onEditionSuccess();
+                break;
+            case $this->isACreationForm($form):
+                $success = $this->onCreationSuccess();
+                break;
+            default:
+                $success = null;
+        }
+        return parent::submitForm($form, $request, $success, $flush);
     }
 
     /**
@@ -198,19 +168,19 @@ abstract class AbstractResourceAction extends AbstractCRUDAction {
     /**
      * @return string
      */
-    public function getSingleEntityRoute() {
-        if (static::SINGLE_ENTITY_ROUTE === null)
-            throw new \LogicException("SINGLE_ENTITY_ROUTE constant should be overloaded.");
-        return static::SINGLE_ENTITY_ROUTE;
+    public function getCreateFormRoute() {
+        if (static::CREATE_FORM_ROUTE === null)
+            throw new \LogicException("CREATE_FORM_ROUTE constant should be overloaded.");
+        return static::CREATE_FORM_ROUTE;
     }
 
     /**
      * @return string
      */
-    public function getCreateFormRoute() {
-        if (static::CREATE_FORM_ROUTE === null)
-            throw new \LogicException("CREATE_FORM_ROUTE constant should be overloaded.");
-        return static::CREATE_FORM_ROUTE;
+    public function getSingleEntityRoute() {
+        if (static::SINGLE_ENTITY_ROUTE === null)
+            throw new \LogicException("SINGLE_ENTITY_ROUTE constant should be overloaded.");
+        return static::SINGLE_ENTITY_ROUTE;
     }
 
     /**
@@ -223,6 +193,37 @@ abstract class AbstractResourceAction extends AbstractCRUDAction {
     }
 
     /**
+     * @param ResourceInterface $resource
+     * @return string
+     */
+    public function getIndexPath(Request $request, ResourceInterface $resource) : string {
+        return $this->generateUrl($this->getListingRoute(), $this->resolveResourcePathParams($request, $resource));
+    }
+
+    /**
+     * @param ResourceInterface $trackingSoftware
+     * @return string
+     */
+    public function getViewPath(Request $request, ResourceInterface $resource) : string {
+        return $this->generateUrl($this->getSingleEntityRoute(), $this->resolveResourcePathParams($request, $resource));
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getCreatePath(Request $request, ResourceInterface $resource) : string {
+        return $this->generateUrl($this->getCreateFormRoute(), $this->resolveResourcePathParams($request, $resource));
+    }
+
+    /**
+     * @param ResourceInterface $trackingSoftware
+     * @return string
+     */
+    public function getEditPath(Request $request, ResourceInterface $resource) : string {
+        return $this->generateUrl($this->getEditFormRoute(), $this->resolveResourcePathParams($request, $resource));
+    }
+
+    /**
      * @return array
      */
     public function getResourcePathParams() {
@@ -232,40 +233,21 @@ abstract class AbstractResourceAction extends AbstractCRUDAction {
     }
 
     /**
+     * @param Request           $request
      * @param ResourceInterface $resource
      * @return array
      */
-    public function resolveResourcePathParams(ResourceInterface $resource, $includeSelf = true) {
-        $params  = $this->getResourcePathParams();
-
-        foreach ($params AS $key => $param) {
-            $params[$key] = array_map(function ($param) {
-                return 'get' . ucfirst($param);
-            }, explode('.', $param));
-        }
-
-        foreach ($params AS $key => $param) {
-
-            $object = $resource;
-
-            foreach ($param AS $method) {
-
-                if ($method == 'getSelf') {
-                    if (!$includeSelf) {
-                        unset($params[$key]);
-                        continue 2;
-                    }
-                    continue;
-                }
-
-                $object = $object->$method();
-
-            }
-
-            $params[$key] = $object;
-        }
+    public function resolveResourcePathParams(Request $request, ResourceInterface $resource) {
+        $language = new ExpressionLanguage();
+        $params   = array_map(function ($expression) use ($language, $resource, $request) {
+            return $language->evaluate($expression, array_merge($request->attributes->all(), [
+                $this->getEntitySlugName() => $resource,
+                'self' => $resource,
+            ]));
+        }, $this->getResourcePathParams());
 
         return $params;
+
     }
 
 }
