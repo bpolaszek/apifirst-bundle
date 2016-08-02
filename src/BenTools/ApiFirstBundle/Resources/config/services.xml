@@ -47,6 +47,15 @@
             <tag name="twig.extension"/>
         </service>
 
+        <service class="BenTools\ApiFirstBundle\Services\ResourceHandlerRegistry" id="api_first.resource_handler_registry"/>
+
+        <service class="BenTools\ApiFirstBundle\Services\ResourceHelpersExtension" id="api_first.resource_helpers_extension">
+            <argument id="api_first.resource_handler_registry" type="service"/>
+            <argument id="request_stack" type="service"/>
+            <argument id="service_container" type="service"/>
+            <tag name="twig.extension"/>
+        </service>
+
         <service class="BenTools\ApiFirstBundle\TestSuite\Handler\CountryHandler" id="api_first.test_suite.country_handler">
             <argument id="form.factory" type="service"/>
             <argument id="api_first.form_type_factory" type="service"/>
