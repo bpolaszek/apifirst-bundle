@@ -25,7 +25,7 @@ abstract class ApiFirstAbstractType extends AbstractType {
      * @return bool
      */
     protected function shouldEnableCSRFProtection() {
-        return !$this->apiConsumerDetector->looksLikeAnApiRequest();
+        return php_sapi_name() != 'cli' ? !$this->apiConsumerDetector->looksLikeAnApiRequest() : false;
     }
 
     /**

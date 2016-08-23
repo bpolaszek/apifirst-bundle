@@ -45,6 +45,6 @@ class ApiFirstFormTypeFactory implements FormTypeFactoryInterface {
      * @inheritDoc
      */
     public function shouldBehaveForAnApi() : bool {
-        return $this->apiConsumerDetector->looksLikeAnApiRequest();
+        return php_sapi_name() == 'cli' || $this->apiConsumerDetector->looksLikeAnApiRequest();
     }
 }
