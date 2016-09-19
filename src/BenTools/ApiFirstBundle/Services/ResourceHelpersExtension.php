@@ -55,24 +55,27 @@ class ResourceHelpersExtension extends \Twig_Extension implements ContainerAware
 
     /**
      * @param ResourceInterface $resource
+     * @param                   $path
+     * @param array             $params
      * @return string
+     * @throws \RuntimeException
      */
-    public function getResourcePath(ResourceInterface $resource, $path) {
+    public function getResourcePath(ResourceInterface $resource, $path, array $params = []) {
         $actionService = $this->getActionService($resource);
         $request       = $this->requestStack->getMasterRequest();
         switch ($path) {
             case 'index':
-                return $actionService->getIndexPath($request, $resource);
+                return $actionService->getIndexPath($request, $resource, $params);
             case 'create':
-                return $actionService->getCreatePath($request, $resource);
+                return $actionService->getCreatePath($request, $resource, $params);
             case 'view':
-                return $actionService->getViewPath($request, $resource);
+                return $actionService->getViewPath($request, $resource, $params);
             case 'edit':
-                return $actionService->getEditPath($request, $resource);
+                return $actionService->getEditPath($request, $resource, $params);
         }
 
         if (is_callable([$actionService, sprintf('get%sPath', ucfirst($path))])) {
-            return call_user_func([$actionService, sprintf('get%sPath', ucfirst($path))], $request, $resource);
+            return call_user_func([$actionService, sprintf('get%sPath', ucfirst($path))], $request, $resource, $params);
         }
         else {
             throw new \RuntimeException(sprintf("Unable to find path %s for resource %s", $path, get_class($resource)));

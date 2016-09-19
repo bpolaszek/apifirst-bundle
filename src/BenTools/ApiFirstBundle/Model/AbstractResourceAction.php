@@ -196,31 +196,31 @@ abstract class AbstractResourceAction extends AbstractCRUDAction {
      * @param ResourceInterface $resource
      * @return string
      */
-    public function getIndexPath(Request $request, ResourceInterface $resource) : string {
-        return $this->generateUrl($this->getListingRoute(), $this->resolveResourcePathParams($request, $resource));
+    public function getIndexPath(Request $request, ResourceInterface $resource, array $params = []) : string {
+        return $this->generateUrl($this->getListingRoute(), array_replace($this->resolveResourcePathParams($request, $resource), $params));
     }
 
     /**
      * @param ResourceInterface $trackingSoftware
      * @return string
      */
-    public function getViewPath(Request $request, ResourceInterface $resource) : string {
-        return $this->generateUrl($this->getSingleEntityRoute(), $this->resolveResourcePathParams($request, $resource));
+    public function getViewPath(Request $request, ResourceInterface $resource, array $params = []) : string {
+        return $this->generateUrl($this->getSingleEntityRoute(), array_replace($this->resolveResourcePathParams($request, $resource), $params));
     }
 
     /**
      * @inheritDoc
      */
-    public function getCreatePath(Request $request, ResourceInterface $resource) : string {
-        return $this->generateUrl($this->getCreateFormRoute(), $this->resolveResourcePathParams($request, $resource));
+    public function getCreatePath(Request $request, ResourceInterface $resource, array $params = []) : string {
+        return $this->generateUrl($this->getCreateFormRoute(), array_replace($this->resolveResourcePathParams($request, $resource), $params));
     }
 
     /**
      * @param ResourceInterface $trackingSoftware
      * @return string
      */
-    public function getEditPath(Request $request, ResourceInterface $resource) : string {
-        return $this->generateUrl($this->getEditFormRoute(), $this->resolveResourcePathParams($request, $resource));
+    public function getEditPath(Request $request, ResourceInterface $resource, array $params = []) : string {
+        return $this->generateUrl($this->getEditFormRoute(), array_replace($this->resolveResourcePathParams($request, $resource), $params));
     }
 
     /**
