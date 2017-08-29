@@ -46,4 +46,11 @@ class LinkFormRenderer extends \Twig_Extension implements \Twig_Extension_InitRu
         return self::class;
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function initRuntime(Twig_Environment $environment)
+    {
+    }
+
 }

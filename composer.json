@@ -8,6 +8,10 @@
             "BenTools\\ApiFirstBundle\\": "src/BenTools/ApiFirstBundle"
         }
     },
+    "autoload-dev": {
+        "BenTools\\ApiFirstBundle\\TestSuite\\": "tests/TestSuite",
+        "BenTools\\ApiFirstBundle\\Tests\\": "tests"
+    },
     "require": {
         "php": ">=7",
         "friendsofsymfony/rest-bundle": "^2.0",
@@ -25,6 +29,8 @@
         "symfony/phpunit-bridge": "~2.7",
         "doctrine/doctrine-fixtures-bundle": "^2.3",
         "guzzlehttp/guzzle": "^6.2",
-        "liip/functional-test-bundle": "^1.6"
+        "liip/functional-test-bundle": "^1.6",
+        "twig/twig": "^2.4",
+        "phpunit/phpunit": "@stable"
     }
 }
