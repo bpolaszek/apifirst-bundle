@@ -15,7 +15,7 @@ class ApiConsumerDetector {
      * ApiConsumerDetector constructor.
      * @param FormatNegotiator              $formatNegotiator
      */
-    public function __construct(FormatNegotiator $formatNegotiator) {
+    public function __construct(FormatNegotiator $formatNegotiator = null) {
         $this->formatNegotiator     = $formatNegotiator;
     }
 
@@ -24,6 +24,9 @@ class ApiConsumerDetector {
      * @throws \FOS\RestBundle\Util\StopFormatListenerException
      */
     public function looksLikeAnApiRequest() {
+        if (null === $this->formatNegotiator) {
+            return false;
+        }
         return in_array($this->formatNegotiator->getBest(null)->getType(), ['application/json', 'text/xml']);
     }
 
