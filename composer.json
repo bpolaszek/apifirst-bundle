@@ -16,9 +16,9 @@
         "php": ">=7",
         "friendsofsymfony/rest-bundle": "^2.0",
         "dunglas/action-bundle": "^0.4.0",
-        "jms/serializer-bundle": "^1.1",
+        "jms/serializer-bundle": "^1.1|^2.2",
         "bentools/helpfultraits": "^1.0",
-        "sylius/resource": "0.19.*",
+        "sylius/resource": "0.19.*|^1.0",
         "m6web/api-exception-bundle": "^1.1"
     },
     "require-dev": {
