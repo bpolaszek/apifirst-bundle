@@ -22,7 +22,7 @@
         </service>
 
         <service class="BenTools\ApiFirstBundle\Services\ApiConsumerDetector" id="api_first.api_consumer_detector">
-            <argument id="fos_rest.format_negotiator" type="service"/>
+            <!--<argument id="fos_rest.format_negotiator" type="service"/>-->
         </service>
 
         <service class="BenTools\ApiFirstBundle\Services\ApiGuardAuthenticator" id="api_first.api_guard_authenticator">
