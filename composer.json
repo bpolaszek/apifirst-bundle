@@ -13,13 +13,7 @@
         "BenTools\\ApiFirstBundle\\Tests\\": "tests"
     },
     "require": {
-        "php": ">=7",
-        "friendsofsymfony/rest-bundle": "^2.0",
-        "dunglas/action-bundle": "^0.4.0",
-        "jms/serializer-bundle": "^1.1|^2.2",
-        "bentools/helpfultraits": "^1.0",
-        "sylius/resource": "0.19.*|^1.0",
-        "m6web/api-exception-bundle": "^1.1"
+        "php": ">=7"
     },
     "require-dev": {
         "symfony/symfony": "~2.8|~3.0",
@@ -32,5 +26,11 @@
         "liip/functional-test-bundle": "^1.6",
         "twig/twig": "^2.4",
         "phpunit/phpunit": "@stable"
+        "friendsofsymfony/rest-bundle": "^2.0",
+        "dunglas/action-bundle": "^0.4.0",
+        "jms/serializer-bundle": "^1.1|^2.2",
+        "bentools/helpfultraits": "^1.0",
+        "sylius/resource": "0.19.*|^1.0",
+        "m6web/api-exception-bundle": "^1.1"
     }
 }

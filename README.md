@@ -1,6 +1,8 @@
 APIFirst Bundle
 ===============
 
+This project is **ABANDONNED**.
+
 Provides classes for API-first designed projects with Symfony.
 
 For personnal purposes for the moment.
