@@ -7,6 +7,9 @@ For personnal purposes for the moment.
 
 The goal of this bundle is to help in designing Symfony applications that can be consumed with an API and with an UI as well.
 
+> [!IMPORTANT]  
+> This repository is no longer maintained and may be removed in a near future. You may consider creating a fork if you still require it.
+
 Concept
 -------
 
